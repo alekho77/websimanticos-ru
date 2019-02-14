@@ -10,7 +10,7 @@
     <style type="text/css">
       p {
         font-family: Georgia, 'Times New Roman', Times, serif;
-        font-size: 14pt;
+        font-size: 12pt;
         padding-left: 5%;
         padding-right: 5%;
         text-align: justify;
@@ -21,17 +21,37 @@
         background-color: black;
         text-align: center;
       }
+      .border {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+      a:link {
+        text-decoration: none;
+      }
+      a:visited {
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      a:active {
+        text-decoration: underline;
+      }
     </style>
   </head>
   <body style="background-color: white">
     <div style="width: 1280px; margin-left: auto; margin-right: auto; display: block; background-color: linen">
       <div class="banner">
-        <div style="display: block; margin-left: auto; margin-right: auto; width: 80%; padding-top: 20px; padding-bottom: 20px">
+        <div class="border">
           <img src="/images/logo.png" alt="" style="display: inline; vertical-align: middle" />
           <div style="display: inline">
             <h1 style="color: deepskyblue; font-family: monospace; margin-left: 5%; display: inline">
               <span style="vertical-align: top">web</span>
-              <span style="vertical-align: bottom; font-size: 300%; font-weight: bold">RU</span>
+              <span style="vertical-align: bottom; font-size: 300%; font-weight: bold; font-style: italic">RU</span>
               <span style="vertical-align: middle; font-size: 200%">семантика</span>
             </h1>
             <h2 style="color: royalblue; display: inline; vertical-align: bottom; margin-left: -5ch">σημαντικός</h2>
@@ -40,19 +60,66 @@
       </div>
       <div style="display: block">
         <p>
-          Проект по сематическому анализу русскоязычного сегмента интернета на основе моделей, построенных
-          командой Андрея Кутузова (<a href="https://rusvectores.org">проект RusVectōrēs</a>)
-          и обученных на искусственных нейронных сетях, которые позволили вычислять семантические отношения между словами русского языка.
+          Проект по сематическому анализу русскоязычного сегмента интернета на основе моделей,
+          построенных и обученных на искусственных нейронных сетях командой Андрея Кутузова (<a href="https://rusvectores.org">проект RusVectōrēs</a>),
+          которые позволили получить уже готовые модели для вычисления семантических отношений между словами русского языка.
+          Сегодня алгоритмы Word Embeddings, которые сопоставляют вектор слову, уже достаточно хорошо известны и с успехом применяются гигантами интернета.
+          Взлет популярности начался в 2013 году, когда мало кому известный чешский аспирант Томаш Миколов предложил свой подход к word embedding,
+          который он назвал word2vec. Его подход основан важной гипотезе,
+          которую в науке принято называть гипотезой локальности — «слова, которые встречаются в одинаковых окружениях, имеют близкие значения».
+          Кому интересно, более подробно можно прочитать интервью с Томасом Миколов: <a href="https://rb.ru/interview/tomas-mikolov/">До восстания машин еще далеко</a>.
         </p>
         <p>
-          Вручную были отобраны два с половиной десятка тем:
+          Для данного проекта вручную  были отобраны два с половиной десятка тем:
           'Компьютеры', 'Софт', 'Игры', 'Кино', 'Музыка и MP3', 'Интернет', 'Новости, СМИ', 'Товары, услуги', 'Авто', 'Города и регионы',
           'Недвижимость', 'Погода', 'Спорт', 'Медицина и здоровье', 'Наука', 'Литература', 'Работа', 'Обучение', 'Экономика и бизнес',
-          'Путешествия', 'Дом и семья', 'Юмор', 'Развлечения', 'Знакомства, общение'.
+          'Путешествия', 'Дом и семья', 'Юмор', 'Развлечения', 'Знакомства, общение'. Их семантическая близость упрощенно показана на следующем рисунке.
         </p>
       </div>
       <div class="banner">
-        <img src="/images/websematicsky-topics.png" alt="">
+        <img src="/images/websematicsky-topics.png" alt="Расположение основных тем на смысловой сфере">
+      </div>
+      <div style="display: block">
+        <p>
+            Важно понимать, что изначально размерность «смыслового пространства» очень велика.
+            Обычно она составляет несколько сотен измерений. Поэтому для удобного человеку представления, данные были «сжаты» до 3-х измерений.
+            А так как семантическая близость в машинном представлении вычисляется через угол между векторами,
+            то для представления смысла некоторого слова или нескольких слов, или даже целого текста,
+            удобно выражать через сферические координаты на некой «смысловой сфере», развёртку которой вы можете видеть ни рисунках.
+        </p>
+        <p>
+            Очевидно, что при таком представлении теряется очень много важных сематических аспектов.
+            Но общую картину, которая интуитивно понятна человеку, можно хорошо заметить на рисунке выше.
+            Отчетливо видены группы с близкими темами, такими как «музыка, кино и игры» и «компьютеры и софт».
+            Эти группы через «интернет» и «новости» соединяются с большой группой «товаров и услуг, недвижимости, автомобилей, городов и регионов».
+            Есть группа, отвечающая за смысловое пространство «развлечений, юмора, знакомств и общения, путешествий»,
+            также группа близких к другу понятий «обучение, работа, экономика и бизнес». Есть также ряд понятий, стоящих обособленно, это «погода», «дом и семья».
+            В стороне, но чуть более тесно, располагаются такие понятия как «спорт», «здоровье и медицина», «наука» и «литература».
+            Группы, далёкие друг от друга по смыслу, располагаются в разных полушариях «смысловой сферы».
+        </p>
+        <p>
+            Ниже представлен рисунок, на котором небольшими точками показаны несколько сотен тысяч слов русского языка,
+            окрашенных в цвет той темы, с которой они наиболее близки.
+        </p>
+      </div>
+      <div class="banner">
+        <img src="/images/websematicsky-words.png" alt="300 тысяч русских слов разбросанных по смыслу">
+      </div>
+      <p>
+          Работа продолжается - следующим шагом будет визуализация нескольких тысяч наиболее популярных русскоязычных сайтов в соответствие с их смысловым наполнением…
+      </p>
+      <div class="banner">
+          <div class="border" style="font-family: Verdana, Geneva, Tahoma, sans-serif">
+            <div style="color: goldenrod; font-size: 10pt; margin-top: 10px; margin-bottom: 10px">
+              <span>&copy; Copyright</span>
+              <a style="color: goldenrod; font-weight: bold" href="mailto:ahozin@hotmail.com">Alexey Khozin</a> 
+              <span>2019</span>
+            </div>
+            <div style="color: gray; margin-top: 10px; margin-bottom: 10px; font-size: 60%">
+                <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+                <br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" style="color: gray">Creative Commons Attribution 4.0 International License</a>.
+            </div>
+          </div>
       </div>
     </div>
   </body>
