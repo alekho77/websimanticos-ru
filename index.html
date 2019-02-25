@@ -93,7 +93,7 @@
         </p>
       </div>
       <div class="banner">
-        <img src="/images/websematicsky-topics.png" alt="Расположение основных тем на смысловой сфере" class="sphere">
+        <img src="/images/websematicsky-topics.png" alt="Расположение основных тем на смысловой сфере" class="sphere" />
       </div>
       <div class="text">
         <p>
@@ -120,7 +120,8 @@
         </p>
       </div>
       <div class="banner">
-        <img src="/images/websematicsky-words.png" alt="300 тысяч русских слов разбросанных по смыслу" class="sphere">
+        <img src="/images/websematicsky-words.png" alt="300 тысяч русских слов разбросанных по смыслу" style="cursor: crosshair" class="sphere"
+          onmouseover="showImgHint('imghint')" onmouseout="hideImgHint('imghint')" onmousemove="cursorMove('imghint', event, this)" />
       </div>
       <div class="text">
         <p>
@@ -135,9 +136,9 @@
       </div>
       <div class="banner">
           <div class="border" style="font-family: Verdana, Geneva, Tahoma, sans-serif">
-            <div style="color: goldenrod; font-size: 10pt; margin-top: 10px; margin-bottom: 10px">
+            <div style="color: goldenrod; font-size: 8pt; margin-top: 10px; margin-bottom: 10px">
               <span>&copy; Copyright</span>
-              <a style="color: goldenrod; font-weight: bold" href="mailto:mail@websimanticos.ru">Alexey Khozin</a> 
+              <a style="color: goldenrod" href="mailto:mail@websimanticos.ru">Alexey Khozin</a> 
               <span>2019</span>
             </div>
             <div style="color: gray; margin-top: 10px; margin-bottom: 10px; font-size: 60%">
@@ -160,5 +161,130 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
           </div>
       </div>
     </div>
+    <span id="imghint" style="position: absolute; z-index: 1; opacity: 0; background-color: snow; margin-left: 5px; margin-top: 5px; padding: 2px; font-family: Arial, Helvetica, sans-serif; font-size: 8pt; font-weight: bold"></span>
   </body>
+  <script>
+    function showImgHint(id) {
+      document.getElementById(id).style.opacity = 1;
+    }
+    function hideImgHint(id) {
+      document.getElementById(id).style.opacity = 0;
+    }
+    function invertHammer(x, y) {
+      x2 = x * x;
+      y2 = y * y;
+      z = 1.0 - x2 / 16.0 - y2 / 4.0;
+      if(z >= 0.0) {
+        z = Math.sqrt(z);
+        phi = Math.asin(z * y);
+        theta = 2 * Math.atan2(z * x, 2 * (2 * z * z - 1));
+        if(Math.abs(theta) <= Math.PI) {
+          return {phi:phi, theta:theta};
+        }
+      }
+      return null;
+    }
+    var gajax = createAJAX();
+    var picktimer = null;
+    var loadingtimer = null;
+    function cursorMove(id, event, img) {
+      elem = document.getElementById(id);
+      s = img.width / 1086.0;
+      w2 = 475.0 * s;
+      h2 = img.height / 2.0;
+      coords = invertHammer((event.offsetX - w2) / w2 * 3.0055992936340946227328954988797, - (event.offsetY - h2) / h2 * 1.5720498974593779783554486264652);
+      if(coords) {
+        //elem.innerHTML = "φ: " + (coords.phi * 180 / Math.PI) + ", θ: " + (coords.theta * 180 / Math.PI);
+        x = Math.cos(coords.phi) * Math.cos(coords.theta);
+        y = Math.cos(coords.phi) * Math.sin(coords.theta);
+        z = Math.sin(coords.phi);
+        if(gajax) {
+          elem.innerHTML = "Загрузка";
+          clearTimeout(loadingtimer);
+          loadingtimer = setInterval(function(){ elem.innerHTML += '.'; }, 1000);
+          gajax.handlerResponse = function(resp) {
+              clearTimeout(loadingtimer);
+              try {
+                words = JSON.parse(resp);
+                if (words instanceof Array) {
+                  str = ''; 
+                  for(i = 0; i < words.length; i++) {
+                    if(str.length > 0) str += '<br />';
+                    str += words[i];
+                  }
+                  elem.innerHTML = str;
+                } else {
+                  elem.innerHTML = "нет ответа";
+                }
+              } catch (error) {
+                elem.innerHTML = "ошибка";
+              }
+            };
+          clearTimeout(picktimer);
+          picktimer = setTimeout(function(){ gajax.postdata('/words.php', 'x=' + x + '&y=' + y + '&z=' + z); }, 200);
+        } else {
+          elem.innerHTML = "нет связи";
+        }
+      } else {
+        elem.innerHTML = "пусто";
+      }
+      elem.style.left = event.pageX + "px";
+      elem.style.top =  event.pageY + "px";
+    }
+    function createAJAX() {
+      var ajax = {
+        xmlHttp: false,
+        enabled: false,
+        timeout: 60000,
+        timer: null,
+        handlerLoad: null, //function(url) { alert('Loading...\r\n' + url); },
+        handlerResponse: null, //function(resp) { alert('OK\r\n' + resp); },
+        handlerError: null, //function(status, text) { alert('Error: ' + status + '\r\n' + text); },
+        handlerTimer: null, //function() { gajax.xmlHttp.abort(); gajax.timer = null; if (gajax.handlerError) gajax.handlerError('', 'Timeout!'); },
+        handlerState: function() {
+            if (gajax.xmlHttp.readyState == 4) {
+              if (gajax.timer) { clearTimeout(gajax.timer); gajax.timer = null; }
+              if (gajax.xmlHttp.status == 200) {
+                if (gajax.handlerResponse) gajax.handlerResponse(gajax.xmlHttp.responseText);
+              } else {
+                if (gajax.handlerError) gajax.handlerError(gajax.xmlHttp.status, gajax.xmlHttp.statusText);
+              }
+            }
+          },
+        init: function() {
+            /*@cc_on@*/
+            /*@if (@_jscript_version >= 5)
+            try { this.xmlHttp = new ActiveXObject("Msxml2.XMLHTTP"); }
+            catch (e) {
+                try { this.xmlHttp = new ActiveXObject("Microsoft.XMLHTTP"); }
+                catch (e2) { this.xmlHttp = false; }
+            }
+            @end@*/
+            if (!this.xmlHttp && typeof XMLHttpRequest != 'undefined') this.xmlHttp = new XMLHttpRequest();
+            if (this.xmlHttp) this.enabled = true;
+          },
+        get: function(url) {
+            this.xmlHttp.abort();
+            this.xmlHttp.open('GET', url, true);
+            this.xmlHttp.onreadystatechange = this.handlerState;
+            if (this.handlerTimer) this.timer = setTimeout(this.handlerTimer, this.timeout);
+            this.xmlHttp.send(null);
+            if (this.handlerLoad) this.handlerLoad(url);
+          },
+        postdata: function(url, params) {
+            this.xmlHttp.abort();
+            if(this.timer) clearTimeout(this.timer);
+            this.xmlHttp.open('POST', url, true);
+            this.xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            this.xmlHttp.onreadystatechange = this.handlerState;
+            if (this.handlerTimer) this.timer = setTimeout(this.handlerTimer, this.timeout);
+            this.xmlHttp.send(params);
+            if (this.handlerLoad) this.handlerLoad(url);
+          }
+      };
+      ajax.init();
+      if (ajax && ajax.enabled) return ajax;
+      return null;
+    }
+  </script>
 </html>
