@@ -48,6 +48,39 @@
         top: -9pt;
         position: relative
       }
+      .headline {
+        color: white;
+        text-align: left;
+        padding-left: 10pt;
+        padding-right: 10pt;
+        padding-bottom: 4pt;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 10pt;
+        overflow: auto
+      }
+      .disclaimer-bgnd {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        display: block;
+        background: black;
+        opacity: 0.75;
+        z-index: 1
+      }
+      .disclaimer-wnd {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        background: white;
+        opacity: 1;
+        width: 60%;
+        border: 2px solid orangered;
+        margin-left: 20%;
+        margin-top: 5%;
+        z-index: 2
+      }
       img.sphere {
         width: 100%;
         max-width: 1086px;
@@ -80,6 +113,14 @@
             </h1>
             <h2 style="color: royalblue; display: inline; vertical-align: bottom; margin-left: -5ch">σημαντικός</h2>
           </div>
+        </div>
+        <div class="headline">
+          <span style="float: right">
+            <a href="javascript:void(0)" style="color: white" onmouseover="this.style.color='orange'" onmouseout="this.style.color='white'" onclick="document.getElementById('disclaimer').style.display='block'">
+              <img src="/images/disclaimer.png" alt="" style="vertical-align: middle">
+              <span>Отказ от обязательств</span>
+            </a>
+          </span>
         </div>
       </div>
       <div class="text">
@@ -175,6 +216,31 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 </script><!--/LiveInternet-->              
             </div>
           </div>
+      </div>
+    </div>
+    <div id="disclaimer" style="display: none">
+      <div class="disclaimer-bgnd"></div>
+      <div class="disclaimer-wnd">
+        <h2 style="text-align: center">Отказ от обязательств</h2>
+        <p>
+          Проект websimanticos.ru создан исключительно в развлекательных и познавательных целях и не ставит перед собой никаких коммерческих или научных целей.
+          Информация, использованная для построение семантических моделей в проекте websimanticos.ru,
+          была предоставлена третьими лицами и/или получена из открытых источников, именуемыми "источниками".
+          Авторы проекта websimanticos.ru не участвуют в создании этой информации и не гарантируют ее достоверность и актуальность.
+          В силу своего происхождения вся эта информация или любая её часть может быть неполной либо может содержать неточности.
+          Информация может содержать ошибки, допущенные по вине источников и/или в процессе ее автоматической обработки алгоритмами семантического анализа.
+          Любые семантическое ассоциации, полученные на основе автоматической обработки содержимого интернет-сайтов источников,
+          могут отличаться от традиционных и общепринятых практик использования тех или иных объектов.
+        </p>
+        <p>
+          Авторы проекта websimanticos.ru (а) явно отказываются от ответственности за содержание, точность, полноту и соответствие какой бы то ни было информации и
+          (б) не несут ответственность за какие-либо ошибки, упущения или другие недостатки в предоставленной информации и за какие бы то ни было действия,
+          предпринятые в связи с этим. Ни авторы проекта websimanticos.ru, ни какой-либо из его источников не могут нести ответственность за какой бы то ни было ущерб,
+          понесенный вами в связи с использованием этой информации.
+        </p>
+        <p style="text-align: center">
+            <a href="javascript:void(0)" style="border-radius: 4px; background-color: green; color: white; padding: 8pt; margin: 8pt; font-size: 12pt; font-family: Arial, Helvetica, sans-serif; font-weight: bold" onclick="document.getElementById('disclaimer').style.display='none'">Согласен</a>
+        </p>
       </div>
     </div>
     <div id="imghint" style="display: inline-block; position: absolute; z-index: 1; opacity: 0; background-color: snow; margin-left: 5px; margin-top: 5px; padding: 2px; font-family: Arial, Helvetica, sans-serif; font-size: 8pt; font-weight: bold"></div>
