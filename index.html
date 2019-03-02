@@ -86,6 +86,9 @@
         max-width: 1086px;
         height: auto;
       }
+      img.selectable {
+        cursor: url('/images/cursor-select.png') 8 8, crosshair;
+      }
       a:link {
         text-decoration: none;
       }
@@ -170,8 +173,8 @@
         </p>
       </div>
       <div class="banner">
-        <img src="/images/websematicsky-words.png" alt="300 тысяч русских слов разбросанных по смыслу" style="cursor: crosshair" class="sphere"
-          onmouseover="showImgHint('imghint')" onmouseout="hideImgHint('imghint')" onmousemove="cursorMove('imghint', event, this)" />
+        <img src="/images/websematicsky-words.png" alt="300 тысяч русских слов разбросанных по смыслу" class="sphere selectable"
+          onmouseover="showImgHint('imghint')" onmouseout="hideImgHint('imghint')" onmousemove="displayWords('imghint', event, this)" />
         <div class="loading">
           <span id="loadWordsTxt">Загрузка слов</span>
           <img id="loadWordsImg" src="/images/255.gif" alt="" style="vertical-align: middle">
@@ -188,13 +191,28 @@
           Вы можете самостоятельно подвигать курсором мыши над сематической картой русских слов и посмотреть в каждой точке несколько слов наиболее близких по смыслу.
         </p>
         <p>
-          Работы продолжаются, и следующим шагом будет визуализация нескольких тысяч наиболее популярных русскоязычных сайтов в соответствие с их смысловым наполнением…
+          На следующим рисунке вы можете видеть семантическую карту, построенную на основе контекста нескольких тысяч сайтов из русскоязычного сегмента интернета.
+          Сразу же хочу сказать, что не все сайты содержат «легкодоступный» для робота контент, парой ему с трудом удавалось получить несколько слов.
+          Другие же сайты, наоборот, предоставляли уже с первых страниц тексты, состоящие из миллионов слов.
+          Все это вкупе с упрощением смыслового пространства, фактически до двух измерений, конечно же отразилось на качестве ассоциаций.
+          Так что не удивляйтесь, если, к примеру, увидите интернет почту в разделе игр.
         </p>
+      </div>
+      <div class="banner">
+        <img src="/images/websematicsky-sites.png" alt="Несколько тысяч сайтов из русскоязычного сегмента интернета" class="sphere selectable"
+          onmouseover="showImgHint('imghint')" onmouseout="hideImgHint('imghint')" onmousemove="displaySites('imghint', event, this)" />
+        <div class="loading">
+          <span id="loadSitesTxt">Загрузка сайтов</span>
+          <img id="loadSitesImg" src="/images/255.gif" alt="" style="vertical-align: middle">
+        </div>
+      </div>
+      <div class="text">
+        <p></p>
       </div>
       <div class="banner">
           <div class="border" style="font-family: Verdana, Geneva, Tahoma, sans-serif">
             <div style="color: goldenrod; font-size: 8pt; margin-top: 10px; margin-bottom: 10px">
-              <span>&copy; Copyright</span>
+              <span>&copy;</span>
               <a style="color: goldenrod" href="mailto:mail@websimanticos.ru">Alexey Khozin</a> 
               <span>2019</span>
             </div>
@@ -253,62 +271,88 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
       document.getElementById(id).style.opacity = 0;
     }
     function invertHammer(x, y) {
-      x2 = x * x;
-      y2 = y * y;
-      z = 1.0 - x2 / 16.0 - y2 / 4.0;
+      var x2 = x * x;
+      var y2 = y * y;
+      var z = 1.0 - x2 / 16.0 - y2 / 4.0;
       if (z >= 0.0) {
         z = Math.sqrt(z);
-        phi = Math.asin(z * y);
-        theta = 2 * Math.atan2(z * x, 2 * (2 * z * z - 1));
+        var phi = Math.asin(z * y);
+        var theta = 2 * Math.atan2(z * x, 2 * (2 * z * z - 1));
         if (Math.abs(theta) <= Math.PI) {
-          return {phi:phi, theta:theta};
+          return { phi:phi, theta:theta };
         }
       }
       return null;
     }
     function norm(v) {
-      n = 0.0;
-      for (i = 0; i < v.length; i++) {
+      var n = 0.0;
+      for (var i = 0; i < v.length; i++) {
         n += v[i] * v[i];
       }
       return Math.sqrt(n);
     }
     function similarity(a, b) {
-      dot = 0.0;
-      for (i = 0; i < a.length; i++) {
+      var dot = 0.0;
+      for (var i = 0; i < a.length; i++) {
         dot += a[i] * b[i];
       }
       return dot / (norm(a) * norm(b));
     }
     function most_similar(vocab, vec, topn=1) {
-      toplist = new Array(topn);
-      for (w = 0; w < vocab.length; w++) {
-        s = similarity(vocab[w][1], vec);
-        for (i = 0; i < toplist.length; i++) {
+      var toplist = new Array(topn);
+      for (var w = 0; w < vocab.length; w++) {
+        var s = similarity(vocab[w][vocab[w].length - 1], vec);
+        for (var i = 0; i < toplist.length; i++) {
           if ((typeof toplist[i] === 'undefined') || (toplist[i].sim < s)) {
-            toplist[i] = {word: vocab[w][0], sim: s};
+            toplist[i] = {index: w, sim: s};
             break;
           }
         }
       }
       return toplist;
     }
-    function cursorMove(id, event, img) {
-      elem = document.getElementById(id);
-      s = img.width / 1086.0;
-      w2 = 475.0 * s;
-      h2 = img.height / 2.0;
-      coords = invertHammer((event.offsetX - w2) / w2 * 3.0055992936340946227328954988797, - (event.offsetY - h2) / h2 * 1.5720498974593779783554486264652);
-      if (coords) {
-        geostr = "φ: " + (coords.phi * 180 / Math.PI) + ", θ: " + (coords.theta * 180 / Math.PI);
-        vec = [Math.cos(coords.phi) * Math.cos(coords.theta), Math.cos(coords.phi) * Math.sin(coords.theta), Math.sin(coords.phi)];
-        toplist = most_similar(words3dvec, vec, 5);
-        str = '';
-        for (i = 0; i < toplist.length; i++) {
+    function imgToGeo(img, x, y) {
+      var s = img.width / 1086.0;
+      var w2 = 475.0 * s;
+      var h2 = img.height / 2.0;
+      return invertHammer((x - w2) / w2 * 3.0055992936340946227328954988797, - (y - h2) / h2 * 1.5720498974593779783554486264652);
+    }
+    function geoToStr(coords) {
+      return `φ: ${(coords.phi * 180 / Math.PI).toFixed(0)}, θ: ${(coords.theta * 180 / Math.PI).toFixed(0)}`;
+    }
+    function geoTo3d(coords) {
+      return [Math.cos(coords.phi) * Math.cos(coords.theta), Math.cos(coords.phi) * Math.sin(coords.theta), Math.sin(coords.phi)];
+    }
+    function displayWords(id, event, img) {
+      var elem = document.getElementById(id);
+      var coords = imgToGeo(img, event.offsetX, event.offsetY);
+      if (coords != null) {
+        var toplist = most_similar(words3d.vec, geoTo3d(coords), 5);
+        var str = '';
+        for (var i = 0; i < toplist.length; i++) {
           if (typeof toplist[i] === 'undefined') break;
-          str += '<tr><td>' + toplist[i].word /* + '</td><td>' + toplist[i].sim*/ + '</td></tr>';
+          str += `<tr><td>${words3d.vec[toplist[i].index][0]}</td></tr>`;
         }
-        elem.innerHTML = (str.length > 0) ? '<table>' + str + '</table>' : geostr;
+        elem.innerHTML = (str.length > 0) ? `<table>${str}</table>` : geoToStr(coords);
+      } else {
+        elem.innerHTML = "пусто";
+      }
+      elem.style.left = event.pageX + "px";
+      elem.style.top =  event.pageY + "px";
+    }
+    function displaySites(id, event, img) {
+      var elem = document.getElementById(id);
+      var coords = imgToGeo(img, event.offsetX, event.offsetY);
+      if (coords != null) {
+        var toplist = most_similar(sites3d.vec, geoTo3d(coords), 1);
+        if (toplist[0] !== 'undefined' && toplist[0].sim > 0.9995) {
+          var site = sites3d.vec[toplist[0].index];
+          var link_row = `<tr><td>${site[0]}</td></tr>`;
+          var desc_row = `<tr><td>${site[1]}</td></tr>`;
+          elem.innerHTML = `<table>${link_row}${desc_row}</table>`;
+        } else {
+          elem.innerHTML = geoToStr(coords);
+        }
       } else {
         elem.innerHTML = "пусто";
       }
@@ -317,85 +361,98 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
     }
     function createAJAX() {
       var ajax = {
-        xmlHttp: false,
+        xmlHttp: null,
         enabled: false,
         timeout: 60000,
         timer: null,
-        handlerLoad: null, //function(url) { alert('Loading...\r\n' + url); },
         handlerResponse: null, //function(resp) { alert('OK\r\n' + resp); },
         handlerError: null, //function(status, text) { alert('Error: ' + status + '\r\n' + text); },
-        handlerTimer: null, //function() { gajax.xmlHttp.abort(); gajax.timer = null; if (gajax.handlerError) gajax.handlerError('', 'Timeout!'); },
+        handlerTimer: null, //function() { this.xmlHttp.abort(); this.timer = null; if (this.handlerError) this.handlerError('', 'Timeout!'); },
         handlerState: function() {
-            if (gajax.xmlHttp.readyState == 4) {
-              if (gajax.timer) { clearTimeout(gajax.timer); gajax.timer = null; }
-              if (gajax.xmlHttp.status == 200) {
-                if (gajax.handlerResponse) gajax.handlerResponse(gajax.xmlHttp.responseText);
+            if (this.xmlHttp.readyState == 4) {
+              if (this.timer) { clearTimeout(this.timer); this.timer = null; }
+              if (this.xmlHttp.status == 200) {
+                if (this.handlerResponse) this.handlerResponse(this.xmlHttp.responseText);
               } else {
-                if (gajax.handlerError) gajax.handlerError(gajax.xmlHttp.status, gajax.xmlHttp.statusText);
+                if (this.handlerError) this.handlerError(this.xmlHttp.status, this.xmlHttp.statusText);
               }
             }
           },
         init: function() {
-            /*@cc_on@*/
-            /*@if (@_jscript_version >= 5)
-            try { this.xmlHttp = new ActiveXObject("Msxml2.XMLHTTP"); }
-            catch (e) {
-                try { this.xmlHttp = new ActiveXObject("Microsoft.XMLHTTP"); }
-                catch (e2) { this.xmlHttp = false; }
-            }
-            @end@*/
-            if (!this.xmlHttp && typeof XMLHttpRequest != 'undefined') this.xmlHttp = new XMLHttpRequest();
-            if (this.xmlHttp) this.enabled = true;
+            if (window.XMLHttpRequest) {
+              this.xmlHttp = new XMLHttpRequest();
+            } else {
+              this.xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }          
+            this.enabled = this.xmlHttp != null;
           },
         get: function(url) {
-            this.xmlHttp.abort();
-            this.xmlHttp.open('GET', url, true);
-            this.xmlHttp.onreadystatechange = this.handlerState;
-            if (this.handlerTimer) this.timer = setTimeout(this.handlerTimer, this.timeout);
-            this.xmlHttp.send(null);
-            if (this.handlerLoad) this.handlerLoad(url);
-          },
-        postdata: function(url, params) {
+            var this_ajax = this;
             this.xmlHttp.abort();
             if(this.timer) clearTimeout(this.timer);
-            this.xmlHttp.open('POST', url, true);
+            this.xmlHttp.open('GET', url);
+            this.xmlHttp.onreadystatechange = function() { this_ajax.handlerState(); };
+            if (this.handlerTimer) this.timer = setTimeout(function() { this_ajax.handlerTimer(); }, this.timeout);
+            this.xmlHttp.send(null);
+          },
+        postdata: function(url, params) {
+            var this_ajax = this;
+            this.xmlHttp.abort();
+            if(this.timer) clearTimeout(this.timer);
+            this.xmlHttp.open('POST', url);
             this.xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            this.xmlHttp.onreadystatechange = this.handlerState;
-            if (this.handlerTimer) this.timer = setTimeout(this.handlerTimer, this.timeout);
+            this.xmlHttp.onreadystatechange = function() { this_ajax.handlerState(); };
+            if (this.handlerTimer) this.timer = setTimeout(function() { this_ajax.handlerTimer(); }, this.timeout);
             this.xmlHttp.send(params);
-            if (this.handlerLoad) this.handlerLoad(url);
           }
       };
       ajax.init();
-      if (ajax && ajax.enabled) return ajax;
-      return null;
+      return ajax.enabled ? ajax : null;
     }
-    //=================================================================================================================
-    words3dvec = [];
-    words3dvec_count = 0;
-    var gajax = createAJAX();
-    if(gajax) {
-      gajax.handlerResponse = function(resp) {
-        finished = true;
-        try {
-          words = JSON.parse(resp);
-          if (words instanceof Array) {
-            if (words.length > 0) {
-              words3dvec = words3dvec.concat(words);
-              words3dvec_count++;
-              finished = false;
+    function downloadWords(obj) {
+      if(obj.ajax) {
+        obj.ajax.handlerResponse = function(resp) {
+          var finished = true;
+          try {
+            var words = JSON.parse(resp);
+            if (words instanceof Array) {
+              if (words.length > 0) {
+                obj.vec = obj.vec.concat(words);
+                obj.count++;
+                finished = false;
+              }
+            }
+          } finally {
+            var types_tags = {words: ' слов', sites: ' сайтов'};
+            document.getElementById(obj.txtItem).innerHTML = 'Загружено ' + obj.vec.length + types_tags[obj.type];
+            if (finished) {
+              document.getElementById(obj.imgItem).style.display = 'none';
+            } else {
+              this.postdata('/words.php', `type=${obj.type}&count=${obj.count}`);
             }
           }
-        } finally {
-          document.getElementById('loadWordsTxt').innerHTML = 'Загружено ' + words3dvec.length + ' слов';
-          if (finished) {
-            document.getElementById('loadWordsImg').style.display = 'none';
-          } else {
-            gajax.postdata('/words.php', 'count=' + words3dvec_count);
-          }
-        }
-      };
-      gajax.postdata('/words.php', 'count=' + words3dvec_count);
+        };
+        obj.ajax.postdata('/words.php', `type=${obj.type}&count=${obj.count}`);
+      }
     }
+    //=================================================================================================================
+    var words3d = {
+      ajax: createAJAX(),
+      type: 'words',
+      vec: [],
+      count: 0,
+      txtItem: 'loadWordsTxt',
+      imgItem: 'loadWordsImg',
+    };
+    var sites3d = {
+      ajax: createAJAX(),
+      type: 'sites',
+      vec: [],
+      count: 0,
+      txtItem: 'loadSitesTxt',
+      imgItem: 'loadSitesImg',
+    };
+    downloadWords(words3d);
+    downloadWords(sites3d);
   </script>
 </html>
