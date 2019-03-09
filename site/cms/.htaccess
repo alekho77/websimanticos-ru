@@ -1,0 +1,5 @@
+AuthType Basic
+AuthName "restricted area"
+AuthUserFile /home/srv84456/htdocs/.htpasswd
+AuthGroupFile /home/srv84456/htdocs/.htgroups
+require group moderators
