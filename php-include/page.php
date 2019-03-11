@@ -1,14 +1,18 @@
 <?php
 
-include_once('dbconn.php');
 include_once('site.php');
 
-class Page extends DbConnection {
-    function __construct($pagename) {
+final class Page extends Site {
+    public function __construct($pagename) {
         parent::__construct();
-        $sitename = $this->initialize($pagename) or die();
-        $this->site = new Site($this->mysqli, $sitename);
+        //$sitename = $this->initialize($pagename) or die();
+        //$this->site = new Site($this->mysqli, $sitename);
     }
+
+    public function __destruct() {
+        parent::__destruct();
+    }
+
     private function initialize($pagename) {
         $query = "select `site`, `title` from  `pages` where  `name` = '{$pagename}' limit 0, 1";
         if($result = $this->mysqli->query($query)) {
@@ -21,15 +25,13 @@ class Page extends DbConnection {
         }
         return false;
     }
-    function __destruct() {
-        parent::__destruct();
-    }
-    function html() {
-return <<<EOPAGE
+
+    public function html() {
+        return <<<EOPAGE
 <!DOCTYPE html>
 <html>
   <head>
-{$this->site->html_head()}
+{parent::html()}
     <title>{$this->title}</title>
   </head>
   <body style="background-color: white">
