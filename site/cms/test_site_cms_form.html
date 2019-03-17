@@ -3,99 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="copyright" content="(c) Alexey U. Khozin 2019" />
-    <link rel="shortcut icon" href="/cms/images/cms.png" type="image/png" />
+    <link rel="icon" href="images/cms.png" type="image/png" />
+    <link rel="stylesheet" type="text/css" href="css/cms-theme.css" />
     <title>CMS for host localhost:3000</title>
-    <style type="text/css">
-      .simplebutton {
-        padding: 0em 0.1em 0em 0.1em;
-        vertical-align: baseline;
-        height: 1.7em;
-      }
-      .caption {
-        margin-left: 1em;
-        font-weight: bold;
-        color: gray;
-      }
-      .collapser {
-        margin-right: 0.5em;
-        font-weight: bold;
-        font-family: 'Courier New', Courier, monospace;
-        font-size: larger;
-        color: gray;
-        float: right;
-      }
-      .collapser:hover {
-        color: black;
-      }
-      .chapter-header {
-        padding-top: 0.5em;
-        padding-bottom: 0.5em;
-      }
-      .chapter-box {
-        width: 100%;
-        margin-top: 1em;
-        border-top: 1px solid rgb(224, 224, 224);
-      }
-      .chapter-body {
-        margin: 0em 1em 0em 1em;
-        padding: 0.5em;
-        border: 1px solid rgb(187, 187, 187);
-      }
-      .page-list-item {
-        height: 1.2em;
-        padding: 0.2em;
-        cursor: default;
-        border: 1px dotted snow;
-      }
-      .page-list-item:hover {
-        background-color: rgb(224, 224, 224);
-      }
-      .page-list-item-selected {
-        border: 1px dotted rgb(187, 187, 187);
-        background-color: rgb(240, 240, 240);
-      }
-      .list-row {
-        height: 2em;
-        width: calc(100% - 1em);
-        white-space: nowrap;
-      }
-      .page-block {
-        width: calc(100% - 0.4em - 2px);
-        text-align: center;
-        border: 1px dotted gray;
-        padding: 0.2em;
-        margin-top: 1px;
-        margin-bottom: 1px;
-      }
-      td {
-        vertical-align: middle;
-        border: none;
-        padding: 0px;
-        margin: 0px; 
-      }
-      span {
-        cursor: default;
-      }
-      table {
-        border: none;
-        border-spacing: 0px;
-      }
-    </style>
+    <script src="js/cms.js" type="application/javascript" charset="UTF-8" defer="defer"></script>
     <script>
-      function collapse(btn, id) {
-        var item = document.getElementById(id);
-        if (item.style.display == 'none') {
-          item.style.display = 'block';
-          btn.innerHTML = '[-]';
-        } else {
-          item.style.display = 'none'; 
-          btn.innerHTML = '[+]';
-        }
-      }
+      var sitename = "localhost";
     </script>
   </head>
-  <body style="background-color: white; font-family: Arial, Helvetica, sans-serif; font-size: 10pt">
-    <div style="width: 90%; max-width: 1280px; margin-left: auto; margin-right: auto; background-color: snow">
+  <body>
+    <div class="root">
         <div style="width: 100%">
           <div class="chapter-header">
             <span class="caption" style="font-size: larger">Site</span>
@@ -105,14 +22,14 @@
             <table>
               <tr style="height: 2em">
                 <td rowspan="2" style="width: 55px; text-align: center">
-                  <img src="" alt="no" style="display: inline-block; vertical-align: middle; border: 1px dashed rgb(187, 187, 187); width: 48px; height: 48px" />
+                  <img src="" alt="no" class="site-icon" />
                 </td>
                 <td style="width: 10em">
                   <span style="margin-left: 1em">Site name:</span>
                 </td>
                 <td style="width: auto">
-                  <input type="text" name="sitename" readonly="readonly" value="localhost" style="width: 30ex" />
-                  <button type="button" class="simplebutton" style="width: 2em; margin-left: 0.5em">&#10041;</button>
+                  <input type="text" name="sitename" readonly="readonly" value="localhost" style="width: 10em" />
+                  <button type="button" class="simplebutton">&#10041;</button>
                 </td>
               </tr>
               <tr style="height: 2em">
@@ -120,8 +37,8 @@
                   <span style="margin-left: 1em">Shortcut icon:</span>
                 </td>
                 <td style="width: auto">
-                  <input type="text" name="shortcut-icon" style="width: 30ex" />
-                  <button type="button" class="simplebutton" style="width: 2em; margin-left: 0.5em">&#8230;</button>
+                  <input type="text" name="shortcut-icon" style="width: 20em" />
+                  <button type="button" class="simplebutton">&#8230;</button>
                 </td>
               </tr>
              </table>
@@ -134,14 +51,14 @@
           </div>
           <div id="chapter-site-meta" class="chapter-body" style="overflow-x: auto">
             <div class="list-row">
-              <button type="button" class="simplebutton" style="width: 2em">&#10005;</button>
+              <button type="button" class="simplebutton">&#10005;</button>
               <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
               <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <button type="button" class="simplebutton" style="width: 2em">&#8592;</button>
-              <button type="button" class="simplebutton" style="width: 2em; margin-right: 1em">&#10151;</button>
+              <button type="button" class="simplebutton">&#9003;</button>
+              <button type="button" class="simplebutton last">&#10151;</button>
             </div>
             <div class="list-row">
-              <button type="button" class="simplebutton" style="width: 2em">&#10005;</button>
+              <button type="button" class="simplebutton">&#10005;</button>
               <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
               <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
               <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
@@ -150,11 +67,11 @@
               <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
               <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
               <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <button type="button" class="simplebutton" style="width: 2em">&#8592;</button>
-              <button type="button" class="simplebutton" style="width: 2em; margin-right: 1em">+</button>
+              <button type="button" class="simplebutton">&#9003;</button>
+              <button type="button" class="simplebutton last">&#10151;</button>
             </div>
             <div class="list-row">
-              <button type="button" class="simplebutton" style="width: 2em; font-weight: bold" disabled="disabled">&#8617;</button>
+              <button type="button" class="simplebutton" style="font-weight: bold" disabled="disabled">&#8617;</button>
             </div>
           </div>
         </div>
@@ -166,10 +83,10 @@
           <div id="chapter-pages" class="chapter-body">
             <div style="display: inline-block; width: 15%; vertical-align: top">
               <div style="width: 100%; text-align: right">
-                <button type="button" class="simplebutton" style="width: 2em">&#10041;</button>
-                <button type="button" class="simplebutton" style="width: 2em">&#10005;</button>
+                <button type="button" class="simplebutton">&#10041;</button>
+                <button type="button" class="simplebutton">&#10005;</button>
               </div>
-              <div style="width: 100%; border: 1px solid  rgb(187, 187, 187); margin-top: 0.5em">
+              <div style="width: 100%; border: 1px solid var(--border-color); margin-top: 0.5em">
                 <table style="width: 100%">
                   <tr><td class="page-list-item">index</td></tr>
                   <tr><td class="page-list-item">page1</td></tr>
@@ -187,14 +104,14 @@
                 </div>
                 <div id="chapter-page-meta" class="chapter-body" style="overflow-x: auto; margin-right: 0em">
                   <div class="list-row">
-                    <button type="button" class="simplebutton" style="width: 2em">&#10005;</button>
+                    <button type="button" class="simplebutton">&#10005;</button>
                     <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
                     <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <button type="button" class="simplebutton" style="width: 2em">&#9003;</button>
-                    <button type="button" class="simplebutton" style="width: 2em; margin-right: 1em">&#10151;</button>
+                    <button type="button" class="simplebutton">&#9003;</button>
+                    <button type="button" class="simplebutton last">&#10151;</button>
                   </div>
                   <div class="list-row">
-                    <button type="button" class="simplebutton" style="width: 2em">&#10005;</button>
+                    <button type="button" class="simplebutton">&#10005;</button>
                     <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
                     <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
                     <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
@@ -203,11 +120,11 @@
                     <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
                     <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
                     <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <button type="button" class="simplebutton" style="width: 2em">&#8592;</button>
-                    <button type="button" class="simplebutton" style="width: 2em; margin-right: 1em">+</button>
+                    <button type="button" class="simplebutton">&#9003;</button>
+                    <button type="button" class="simplebutton last">&#10151;</button>
                   </div>
                   <div class="list-row">
-                    <button type="button" class="simplebutton" style="width: 2em; font-weight: bold">&#8617;</button>
+                    <button type="button" class="simplebutton" style="font-weight: bold">&#8617;</button>
                   </div>
                 </div>
               </div>
@@ -220,17 +137,17 @@
                   <div class="page-block" style="height: 3em">
                     <span class="caption">Page header</span>
                     <div style="float: right">
-                      <button type="button" class="simplebutton" style="width: 2em" disabled="disabled">&#11205;</button>
-                      <button type="button" class="simplebutton" style="width: 2em">&#11206;</button>
-                      <button type="button" class="simplebutton" style="width: 2em; margin-left: 0.5em">&#10005;</button>
+                      <button type="button" class="simplebutton" disabled="disabled">&#11205;</button>
+                      <button type="button" class="simplebutton">&#11206;</button>
+                      <button type="button" class="simplebutton gap">&#10005;</button>
                     </div>
                   </div>
                   <div class="page-block" style="height: 3em">
                     <span class="caption">Page footer</span>
                     <div style="float: right">
-                      <button type="button" class="simplebutton" style="width: 2em">&#11205;</button>
-                      <button type="button" class="simplebutton" style="width: 2em" disabled="disabled">&#11206;</button>
-                      <button type="button" class="simplebutton" style="width: 2em; margin-left: 0.5em">&#10005;</button>
+                      <button type="button" class="simplebutton">&#11205;</button>
+                      <button type="button" class="simplebutton" disabled="disabled">&#11206;</button>
+                      <button type="button" class="simplebutton gap">&#10005;</button>
                     </div>
                   </div>
                 </div>

@@ -1,0 +1,108 @@
+:root {
+  --light-border-color: rgb(224, 224, 224);
+  --border-color: rgb(187, 187, 187);
+  --selected-color: rgb(240, 240, 240);
+  --custom-gray: rgb(75, 75, 75);
+}
+.root {
+  width: 90%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: snow;
+}
+.simplebutton {
+  padding: 0em 0.1em 0em 0.1em;
+  vertical-align: baseline;
+  height: 1.7em;
+  width: 2em;
+}
+.gap {
+  margin-left: 1em;
+}
+.caption {
+  margin-left: 1em;
+  font-weight: bold;
+  color: var(--custom-gray);
+}
+.collapser {
+  margin-right: 0.5em;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: larger;
+  color: var(--custom-gray);
+  float: right;
+}
+.collapser:hover {
+  color: black;
+}
+.chapter-header {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+.chapter-box {
+  width: 100%;
+  margin-top: 1em;
+  border-top: 1px solid var(--light-border-color);
+}
+.chapter-body {
+  margin: 0em 1em 0em 1em;
+  padding: 0.5em;
+  border: 1px solid var(--border-color);
+}
+.page-list-item {
+  height: 1.2em;
+  padding: 0.2em;
+  cursor: default;
+  border: 1px dotted snow;
+}
+.page-list-item:hover {
+  background-color: var(--light-border-color);
+}
+.page-list-item-selected {
+  border: 1px dotted var(--border-color);
+  background-color: var(--selected-color);
+}
+.list-row {
+  height: 2em;
+  white-space: nowrap;
+}
+.last {
+  margin-right: 0.5em;
+}
+.page-block {
+  width: calc(100% - 0.4em - 2px);
+  text-align: center;
+  border: 1px dotted var(--border-color);
+  padding: 0.2em;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+.page-block:hover {
+  background-color: var(--light-border-color);
+}
+img.site-icon {
+  display: inline-block;
+  vertical-align: middle;
+  border: 1px dashed var(--border-color);
+  width: 48px;
+  height: 48px;
+}
+body {
+  background-color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+}
+td {
+  vertical-align: middle;
+  border: none;
+  padding: 0px;
+  margin: 0px; 
+}
+span {
+  cursor: default;
+}
+table {
+  border: none;
+  border-spacing: 0px;
+}
