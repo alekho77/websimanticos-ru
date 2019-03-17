@@ -59,6 +59,14 @@
         width: calc(100% - 1em);
         white-space: nowrap;
       }
+      .page-block {
+        width: calc(100% - 0.4em - 2px);
+        text-align: center;
+        border: 1px dotted gray;
+        padding: 0.2em;
+        margin-top: 1px;
+        margin-bottom: 1px;
+      }
       td {
         vertical-align: middle;
         border: none;
@@ -113,7 +121,7 @@
                 </td>
                 <td style="width: auto">
                   <input type="text" name="shortcut-icon" style="width: 30ex" />
-                  <button type="button" class="simplebutton" style="width: 2em; margin-left: 0.5em">...</button>
+                  <button type="button" class="simplebutton" style="width: 2em; margin-left: 0.5em">&#8230;</button>
                 </td>
               </tr>
              </table>
@@ -126,27 +134,27 @@
           </div>
           <div id="chapter-site-meta" class="chapter-body" style="overflow-x: auto">
             <div class="list-row">
-              <button type="button" class="simplebutton" style="width: 2em">&#10007;</button>
+              <button type="button" class="simplebutton" style="width: 2em">&#10005;</button>
               <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
               <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <button type="button" class="simplebutton" style="width: 2em">&#10229;</button>
+              <button type="button" class="simplebutton" style="width: 2em">&#8592;</button>
+              <button type="button" class="simplebutton" style="width: 2em; margin-right: 1em">&#10151;</button>
+            </div>
+            <div class="list-row">
+              <button type="button" class="simplebutton" style="width: 2em">&#10005;</button>
+              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+              <button type="button" class="simplebutton" style="width: 2em">&#8592;</button>
               <button type="button" class="simplebutton" style="width: 2em; margin-right: 1em">+</button>
             </div>
             <div class="list-row">
-              <button type="button" class="simplebutton" style="width: 2em">&#10007;</button>
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <button type="button" class="simplebutton" style="width: 2em">&#10229;</button>
-              <button type="button" class="simplebutton" style="width: 2em; margin-right: 1em">+</button>
-            </div>
-            <div class="list-row">
-              <button type="button" class="simplebutton" style="width: 2em" disabled="disabled">&#10041;</button>
+              <button type="button" class="simplebutton" style="width: 2em; font-weight: bold" disabled="disabled">&#8617;</button>
             </div>
           </div>
         </div>
@@ -159,7 +167,7 @@
             <div style="display: inline-block; width: 15%; vertical-align: top">
               <div style="width: 100%; text-align: right">
                 <button type="button" class="simplebutton" style="width: 2em">&#10041;</button>
-                <button type="button" class="simplebutton" style="width: 2em">&#10007;</button>
+                <button type="button" class="simplebutton" style="width: 2em">&#10005;</button>
               </div>
               <div style="width: 100%; border: 1px solid  rgb(187, 187, 187); margin-top: 0.5em">
                 <table style="width: 100%">
@@ -179,27 +187,27 @@
                 </div>
                 <div id="chapter-page-meta" class="chapter-body" style="overflow-x: auto; margin-right: 0em">
                   <div class="list-row">
-                    <button type="button" class="simplebutton" style="width: 2em">&#10007;</button>
+                    <button type="button" class="simplebutton" style="width: 2em">&#10005;</button>
                     <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
                     <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <button type="button" class="simplebutton" style="width: 2em">&#10229;</button>
+                    <button type="button" class="simplebutton" style="width: 2em">&#9003;</button>
+                    <button type="button" class="simplebutton" style="width: 2em; margin-right: 1em">&#10151;</button>
+                  </div>
+                  <div class="list-row">
+                    <button type="button" class="simplebutton" style="width: 2em">&#10005;</button>
+                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+                    <button type="button" class="simplebutton" style="width: 2em">&#8592;</button>
                     <button type="button" class="simplebutton" style="width: 2em; margin-right: 1em">+</button>
                   </div>
                   <div class="list-row">
-                    <button type="button" class="simplebutton" style="width: 2em">&#10007;</button>
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <button type="button" class="simplebutton" style="width: 2em">&#10229;</button>
-                    <button type="button" class="simplebutton" style="width: 2em; margin-right: 1em">+</button>
-                  </div>
-                  <div class="list-row">
-                    <button type="button" class="simplebutton" style="width: 2em" disabled="disabled">&#10041;</button>
+                    <button type="button" class="simplebutton" style="width: 2em; font-weight: bold">&#8617;</button>
                   </div>
                 </div>
               </div>
@@ -208,7 +216,24 @@
                   <span class="caption">Page blocks</span>
                   <span class="collapser" style="margin-right: 0em" onclick="collapse(this, 'chapter-page-blocks')">[-]</span>
                 </div>
-                <div id="chapter-page-blocks" class="chapter-body" style="overflow: auto; margin-right: 0em"></div>
+                <div id="chapter-page-blocks" class="chapter-body" style="overflow: auto; margin-right: 0em">
+                  <div class="page-block" style="height: 3em">
+                    <span class="caption">Page header</span>
+                    <div style="float: right">
+                      <button type="button" class="simplebutton" style="width: 2em" disabled="disabled">&#11205;</button>
+                      <button type="button" class="simplebutton" style="width: 2em">&#11206;</button>
+                      <button type="button" class="simplebutton" style="width: 2em; margin-left: 0.5em">&#10005;</button>
+                    </div>
+                  </div>
+                  <div class="page-block" style="height: 3em">
+                    <span class="caption">Page footer</span>
+                    <div style="float: right">
+                      <button type="button" class="simplebutton" style="width: 2em">&#11205;</button>
+                      <button type="button" class="simplebutton" style="width: 2em" disabled="disabled">&#11206;</button>
+                      <button type="button" class="simplebutton" style="width: 2em; margin-left: 0.5em">&#10005;</button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
