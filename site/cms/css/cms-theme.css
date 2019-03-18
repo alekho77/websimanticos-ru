@@ -81,6 +81,13 @@
 .page-block:hover {
   background-color: var(--light-border-color);
 }
+.key {
+  width: 5em;
+  margin-left: 1em;
+}
+.value {
+  width: 10em;
+}
 img.site-icon {
   display: inline-block;
   vertical-align: middle;

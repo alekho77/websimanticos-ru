@@ -6,12 +6,23 @@
     <link rel="icon" href="images/cms.png" type="image/png" />
     <link rel="stylesheet" type="text/css" href="css/cms-theme.css" />
     <title>CMS for host localhost:3000</title>
-    <script src="js/cms.js" type="application/javascript" charset="UTF-8" defer="defer"></script>
-    <script>
+    <script src="js/cms.js" type="application/javascript" charset="UTF-8"></script>
+    <script defer="defer">
       var sitename = "localhost";
+      function initPage() {
+        loadSiteData({
+          site:{
+            new: true,
+            meta: [
+              {id:1, values:[["",""], ["",""]]},
+              {id:2, values:[["",""], ["",""], ["",""], ["",""], ["",""], ["",""], ["",""], ["",""]]}
+            ]
+          }
+        });
+      }
     </script>
   </head>
-  <body>
+  <body onload="initPage()">
     <div class="root">
         <div style="width: 100%">
           <div class="chapter-header">
@@ -22,14 +33,14 @@
             <table>
               <tr style="height: 2em">
                 <td rowspan="2" style="width: 55px; text-align: center">
-                  <img src="" alt="no" class="site-icon" />
+                  <img id="siteicon-img" src="" alt="no" class="site-icon" />
                 </td>
                 <td style="width: 10em">
                   <span style="margin-left: 1em">Site name:</span>
                 </td>
                 <td style="width: auto">
-                  <input type="text" name="sitename" readonly="readonly" value="localhost" style="width: 10em" />
-                  <button type="button" class="simplebutton">&#10041;</button>
+                  <input type="text" readonly="readonly" class="value" value="localhost" />
+                  <button id="newsite" type="button" class="simplebutton">&#10041;</button>
                 </td>
               </tr>
               <tr style="height: 2em">
@@ -37,11 +48,11 @@
                   <span style="margin-left: 1em">Shortcut icon:</span>
                 </td>
                 <td style="width: auto">
-                  <input type="text" name="shortcut-icon" style="width: 20em" />
+                  <input id="siteicon-input" type="text" class="value" style="width: 20em" />
                   <button type="button" class="simplebutton">&#8230;</button>
                 </td>
               </tr>
-             </table>
+            </table>
           </div>
         </div>
         <div class="chapter-box">
@@ -52,21 +63,21 @@
           <div id="chapter-site-meta" class="chapter-body" style="overflow-x: auto">
             <div class="list-row">
               <button type="button" class="simplebutton">&#10005;</button>
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+              <input type="text" class="key" />=<input type="text" class="value" />
+              <input type="text" class="key" />=<input type="text" class="value" />
               <button type="button" class="simplebutton">&#9003;</button>
               <button type="button" class="simplebutton last">&#10151;</button>
             </div>
             <div class="list-row">
               <button type="button" class="simplebutton">&#10005;</button>
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-              <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+              <input type="text" class="key" />=<input type="text" class="value" />
+              <input type="text" class="key" />=<input type="text" class="value" />
+              <input type="text" class="key" />=<input type="text" class="value" />
+              <input type="text" class="key" />=<input type="text" class="value" />
+              <input type="text" class="key" />=<input type="text" class="value" />
+              <input type="text" class="key" />=<input type="text" class="value" />
+              <input type="text" class="key" />=<input type="text" class="value" />
+              <input type="text" class="key" />=<input type="text" class="value" />
               <button type="button" class="simplebutton">&#9003;</button>
               <button type="button" class="simplebutton last">&#10151;</button>
             </div>
@@ -105,21 +116,21 @@
                 <div id="chapter-page-meta" class="chapter-body" style="overflow-x: auto; margin-right: 0em">
                   <div class="list-row">
                     <button type="button" class="simplebutton">&#10005;</button>
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+                    <input type="text" class="key" />=<input type="text" class="value" />
+                    <input type="text" class="key" />=<input type="text" class="value" />
                     <button type="button" class="simplebutton">&#9003;</button>
                     <button type="button" class="simplebutton last">&#10151;</button>
                   </div>
                   <div class="list-row">
                     <button type="button" class="simplebutton">&#10005;</button>
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
-                    <input type="text" name="key" style="width: 5em; margin-left: 1em" />=<input type="text" name="value" style="width: 10em" />
+                    <input type="text" class="key" />=<input type="text" class="value" />
+                    <input type="text" class="key" />=<input type="text" class="value" />
+                    <input type="text" class="key" />=<input type="text" class="value" />
+                    <input type="text" class="key" />=<input type="text" class="value" />
+                    <input type="text" class="key" />=<input type="text" class="value" />
+                    <input type="text" class="key" />=<input type="text" class="value" />
+                    <input type="text" class="key" />=<input type="text" class="value" />
+                    <input type="text" class="key" />=<input type="text" class="value" />
                     <button type="button" class="simplebutton">&#9003;</button>
                     <button type="button" class="simplebutton last">&#10151;</button>
                   </div>
