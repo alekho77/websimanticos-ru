@@ -10,12 +10,17 @@
     <script defer="defer">
       var sitename = "localhost";
       function initPage() {
-        loadSiteData({
+        updateSiteData({
           site:{
-            new: true,
+            new: false,
+            icon: "/images/logo.png",
             meta: [
-              {id:1, values:[["",""], ["",""]]},
-              {id:2, values:[["",""], ["",""], ["",""], ["",""], ["",""], ["",""], ["",""], ["",""]]}
+              {id:1, values:[["charset","utf-8"]]},
+              {id:12, values:[]},
+              {id:34, values:[[]]},
+              {id:56, values:[["1234"]]},
+              {id:2, values:[["name","author"], ["content","Alexey U. Khozin"]]},
+              {id:3, values:[["",""], ["",""], ["",""], ["",""], ["",""], ["",""], ["",""], ["",""]]}
             ]
           }
         });
@@ -49,7 +54,7 @@
                 </td>
                 <td style="width: auto">
                   <input id="siteicon-input" type="text" class="value" style="width: 20em" />
-                  <button type="button" class="simplebutton">&#8230;</button>
+                  <button id="siteicon-browse" type="button" class="simplebutton">&#8230;</button>
                 </td>
               </tr>
             </table>
@@ -82,7 +87,7 @@
               <button type="button" class="simplebutton last">&#10151;</button>
             </div>
             <div class="list-row">
-              <button type="button" class="simplebutton" style="font-weight: bold" disabled="disabled">&#8617;</button>
+              <button type="button" class="simplebutton" style="font-weight: bold">&#8617;</button>
             </div>
           </div>
         </div>
