@@ -8,6 +8,7 @@ function collapse(btn, id) {
     btn.innerHTML = '[+]';
   }
 }
+
 function createMetaValue(key, value) {
   // TODO: encoding strings
   return `<input type="text" class="key" value="${key}" />=<input type="text" class="value" value="${value}" />`;
@@ -25,33 +26,35 @@ function createMetaRow(meta) {
       for(var i = 0; i < values.length; i++) {
         row += values[i];
       }
-      row += `<button type="button" class="simplebutton"${values.length == 1 ? `disabled="disabled"` : ""} style="margin-left: 0.2em">&#9003;</button><button type="button" class="simplebutton last" style="margin-left: 0.2em">&#10151;</button></div>`;
+      row += `<button type="button" class="simplebutton"${values.length == 1 ? ` disabled="disabled"` : ""} style="margin-left: 0.2em">&#9003;</button><button type="button" class="simplebutton last" style="margin-left: 0.2em">&#10151;</button></div>`;
       return row;
     }
   }
   return "";
 }
-var button_add_new_meta = `<div class="list-row"><button type="button" class="simplebutton" style="font-weight: bold">&#8617;</button></div>`;
-function updateSiteData(data) {
-  if (data.site.new) {
+function createMeta(meta) {
+  var metalist = "";
+  for(var i = 0; i < meta.length; i++) {
+    metalist += createMetaRow(meta[i]);
+  }
+  metalist += `<div class="list-row"><button type="button" class="simplebutton" style="font-weight: bold">&#8617;</button></div>`;
+  return metalist;
+}
+function updateSiteData(site) {
+  if (site) {
+    document.getElementById("newsite").style.display = "none";
+    document.getElementById("siteicon-input").value = site.icon;
+    document.getElementById("siteicon-input").readOnly = false;
+    document.getElementById("siteicon-browse").disabled = false;
+    document.getElementById("siteicon-img").src = site.icon;
+    document.getElementById("chapter-site-meta").innerHTML = createMeta(site.meta);
+  } else {
     document.getElementById("newsite").style.display = "inline-block";
     document.getElementById("siteicon-input").value = "";
     document.getElementById("siteicon-input").readOnly = true;
     document.getElementById("siteicon-browse").disabled = true;
     document.getElementById("siteicon-img").src = "";
     document.getElementById("chapter-site-meta").innerHTML = "";        
-  } else {
-    document.getElementById("newsite").style.display = "none";
-    document.getElementById("siteicon-input").value = data.site.icon;
-    document.getElementById("siteicon-input").readOnly = false;
-    document.getElementById("siteicon-browse").disabled = false;
-    document.getElementById("siteicon-img").src = data.site.icon;
-    var sitemeta = "";
-    for(var i = 0; i < data.site.meta.length; i++) {
-      sitemeta += createMetaRow(data.site.meta[i]);
-    }
-    sitemeta += button_add_new_meta;
-    document.getElementById("chapter-site-meta").innerHTML = sitemeta;
   }
 }
 function updatePages(pages) {
@@ -76,11 +79,34 @@ function updatePages(pages) {
     document.getElementById("pages-list").innerHTML = "";        
   }
 }
+function createBlock(block, first, last) {
+  var blockhtml = `<div class="page-block" style="height: 3em">`;
+  blockhtml += `<span class="caption">${block.caption}</span>`;
+  blockhtml += `<div style="float: right">`;
+  blockhtml += `<button type="button" class="simplebutton"${first ? ` disabled="disabled"` : ""} >&#11205;</button>`;
+  blockhtml += `<button type="button" class="simplebutton"${last ? ` disabled="disabled"` : ""}>&#11206;</button>`;
+  blockhtml += `<button type="button" class="simplebutton gap">&#10005;</button>`;
+  blockhtml += `</div>`;
+  blockhtml += `</div>`;
+  return blockhtml;
+}
+function createBlocks(blocks) {
+  var blocklist = "";
+  for(var i = 0; i < blocks.length; i++) {
+    blocklist += createBlock(blocks[i], i == 0, i == (blocks.length - 1));
+  }
+  return blocklist;
+}
 function updatePage(page) {
   if (page) {
-    
+    document.getElementById("chapter-page-meta").innerHTML = createMeta(page.meta);        
+    document.getElementById("chapter-page-blocks").innerHTML = createBlocks(page.blocks);        
   } else {
     document.getElementById("chapter-page-meta").innerHTML = "";        
     document.getElementById("chapter-page-blocks").innerHTML = "";        
   }
+}
+
+function createSite(sitename) {
+
 }
