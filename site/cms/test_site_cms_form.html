@@ -24,6 +24,10 @@
             ]
           }
         });
+        updatePages({
+          selected: "page35",
+          names: ["index", "page11", "page21", "page35", "page1234"]});
+        updatePage(false);
       }
     </script>
   </head>
@@ -99,10 +103,10 @@
           <div id="chapter-pages" class="chapter-body">
             <div style="display: inline-block; width: 15%; vertical-align: top">
               <div style="width: 100%; text-align: right">
-                <button type="button" class="simplebutton">&#10041;</button>
-                <button type="button" class="simplebutton">&#10005;</button>
+                <button id="new-page" type="button" class="simplebutton">&#10041;</button>
+                <button id="remove-page" type="button" class="simplebutton">&#10005;</button>
               </div>
-              <div style="width: 100%; border: 1px solid var(--border-color); margin-top: 0.5em">
+              <div id="pages-list" style="width: 100%; border: 1px solid var(--border-color); margin-top: 0.5em">
                 <table style="width: 100%">
                   <tr><td class="page-list-item">index</td></tr>
                   <tr><td class="page-list-item">page1</td></tr>

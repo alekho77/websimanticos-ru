@@ -33,8 +33,6 @@ function createMetaRow(meta) {
 }
 var button_add_new_meta = `<div class="list-row"><button type="button" class="simplebutton" style="font-weight: bold">&#8617;</button></div>`;
 function updateSiteData(data) {
-  console.info(data);
-
   if (data.site.new) {
     document.getElementById("newsite").style.display = "inline-block";
     document.getElementById("siteicon-input").value = "";
@@ -54,5 +52,35 @@ function updateSiteData(data) {
     }
     sitemeta += button_add_new_meta;
     document.getElementById("chapter-site-meta").innerHTML = sitemeta;
+  }
+}
+function updatePages(pages) {
+  if (pages) {
+    document.getElementById("new-page").disabled = false;
+    if (pages.names.length > 0) {
+      var pageslist = "";
+      var selected = false;
+      for(var i = 0; i < pages.names.length; i++) {
+        selected = selected || (pages.selected == pages.names[i]);
+        pageslist += `<tr><td class="page-list-item${pages.selected == pages.names[i] ? " page-list-item-selected" : ""}">${pages.names[i]}</td></tr>`;
+      }
+      document.getElementById("remove-page").disabled = !selected;
+      document.getElementById("pages-list").innerHTML = `<table style="width: 100%">${pageslist}</table>`;        
+    } else {
+      document.getElementById("remove-page").disabled = true;
+      document.getElementById("pages-list").innerHTML = "";        
+    }
+  } else {
+    document.getElementById("new-page").disabled = true;
+    document.getElementById("remove-page").disabled = true;
+    document.getElementById("pages-list").innerHTML = "";        
+  }
+}
+function updatePage(page) {
+  if (page) {
+    
+  } else {
+    document.getElementById("chapter-page-meta").innerHTML = "";        
+    document.getElementById("chapter-page-blocks").innerHTML = "";        
   }
 }
