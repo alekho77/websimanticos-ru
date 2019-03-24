@@ -88,6 +88,14 @@
 .value {
   width: 10em;
 }
+.refresher {
+  display: inline-block;
+  position: fixed;
+  background-color: var(--selected-color);
+  opacity: 0.75;
+  z-index: 1;
+  text-align: center;
+}
 img.site-icon {
   display: inline-block;
   vertical-align: middle;

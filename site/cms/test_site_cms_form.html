@@ -8,9 +8,6 @@
     <title>CMS for host localhost:3000</title>
     <script src="js/cms.js" type="application/javascript" charset="UTF-8"></script>
     <script defer="defer">
-      var sitedb = {
-        site: false
-      };
       function initPage() {
         updateSiteData(sitedb.site /*{
           icon: "/images/logo.png",
@@ -115,7 +112,7 @@
           <span class="collapser" onclick="collapse(this, 'chapter-pages')">[-]</span>
         </div>
         <div id="chapter-pages" class="chapter-body">
-          <div style="display: inline-block; width: 15%; vertical-align: top">
+          <div id="chapter-page-list" style="display: inline-block; width: 15%; vertical-align: top">
             <div style="width: 100%; text-align: right">
               <button id="new-page" type="button" class="simplebutton">&#10041;</button>
               <button id="remove-page" type="button" class="simplebutton">&#10005;</button>
